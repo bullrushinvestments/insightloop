@@ -1,0 +1,169 @@
+import type { BuildCommand, EnvironmentVariables, HeaderRule } from './types';
+
+interface CacheControl {
+  matchPattern: string;
+  rules: Array<{
+    urlPattern: string;
+    headers?: Array<{ key: string; value: string }>;
+    immutableDays?: number;
+    browserCacheTtlSeconds?: number;
+    edgeCacheTtlSeconds?: number;
+  }>;
+}
+
+interface VercelSettings {
+  buildCommand: BuildCommand;
+  outputDirectory: string;
+  environmentVariables: EnvironmentVariables;
+  headers: Array<HeaderRule>;
+  cacheControl: CacheControl[];
+}
+
+export const deployConfig: VercelSettings = {
+  buildCommand: 'next build',
+  outputDirectory: '.next',
+  environmentVariables: {
+    NEXT_PUBLIC_API_URL: '',
+    DATABASE_URL: ''
+  },
+  headers: [
+    {
+      source: '/(.*)',
+      headers: [
+        { key: 'Access-Control-Allow-Credentials', value: 'true' },
+        { key: 'Access-Control-Allow-Origin', value: '*' }
+      ]
+    }
+  ],
+  cacheControl: [
+    {
+      matchPattern: '**/*.svg',
+      rules: [
+        {
+          urlPattern: '/**/*.svg',
+          immutableDays: 30,
+          browserCacheTtlSeconds: 604800,
+          edgeCacheTtlSeconds: 604800
+        }
+      ]
+    },
+    {
+      matchPattern: '**/*.js',
+      rules: [
+        {
+          urlPattern: '/**/*.js',
+          immutableDays: 7,
+          browserCacheTtlSeconds: 31536000,
+          edgeCacheTtlSeconds: 86400
+        }
+      ]
+    },
+    {
+      matchPattern: '**/*.css',
+      rules: [
+        {
+          urlPattern: '/**/*.css',
+          immutableDays: 7,
+          browserCacheTtlSeconds: 31536000,
+          edgeCacheTtlSeconds: 86400
+        }
+      ]
+    },
+    {
+      matchPattern: '**/*.(png|jpg)',
+      rules: [
+        {
+          urlPattern: '/**/*.(png|jpg)',
+          immutableDays: 365,
+          browserCacheTtlSeconds: 31536000,
+          edgeCacheTtlSeconds: 86400
+        }
+      ]
+    }
+  ]
+};
+
+import type { BuildCommand, EnvironmentVariables, HeaderRule } from './types';
+
+interface CacheControl {
+  matchPattern: string;
+  rules: Array<{
+    urlPattern: string;
+    headers?: Array<{ key: string; value: string }>;
+    immutableDays?: number;
+    browserCacheTtlSeconds?: number;
+    edgeCacheTtlSeconds?: number;
+  }>;
+}
+
+interface VercelSettings {
+  buildCommand: BuildCommand;
+  outputDirectory: string;
+  environmentVariables: EnvironmentVariables;
+  headers: Array<HeaderRule>;
+  cacheControl: CacheControl[];
+}
+
+export const deployConfig: VercelSettings = {
+  buildCommand: 'next build',
+  outputDirectory: '.next',
+  environmentVariables: {
+    NEXT_PUBLIC_API_URL: '',
+    DATABASE_URL: ''
+  },
+  headers: [
+    {
+      source: '/(.*)',
+      headers: [
+        { key: 'Access-Control-Allow-Credentials', value: 'true' },
+        { key: 'Access-Control-Allow-Origin', value: '*' }
+      ]
+    }
+  ],
+  cacheControl: [
+    {
+      matchPattern: '**/*.svg',
+      rules: [
+        {
+          urlPattern: '/**/*.svg',
+          immutableDays: 30,
+          browserCacheTtlSeconds: 604800,
+          edgeCacheTtlSeconds: 604800
+        }
+      ]
+    },
+    {
+      matchPattern: '**/*.js',
+      rules: [
+        {
+          urlPattern: '/**/*.js',
+          immutableDays: 7,
+          browserCacheTtlSeconds: 31536000,
+          edgeCacheTtlSeconds: 86400
+        }
+      ]
+    },
+    {
+      matchPattern: '**/*.css',
+      rules: [
+        {
+          urlPattern: '/**/*.css',
+          immutableDays: 7,
+          browserCacheTtlSeconds: 31536000,
+          edgeCacheTtlSeconds: 86400
+        }
+      ]
+    },
+    {
+      matchPattern: '**/*.(png|jpg)',
+      rules: [
+        {
+          urlPattern: '/**/*.(png|jpg)',
+          immutableDays: 365,
+          browserCacheTtlSeconds: 31536000,
+          edgeCacheTtlSeconds: 86400
+        }
+      ]
+    }
+  ]
+};
